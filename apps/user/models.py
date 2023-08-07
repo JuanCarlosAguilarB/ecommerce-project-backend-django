@@ -101,8 +101,8 @@ class Countries(models.Model):
         return self.name
 
 
-""" 
-The default User model in Django uses a username to uniquely identify a user during authentication. 
+"""
+The default User model in Django uses a username to uniquely identify a user during authentication.
 If you'd rather use an email address, you'll need to create a custom User model by either subclassing
 AbstractUser or AbstractBaseUser.
 
