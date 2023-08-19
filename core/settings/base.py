@@ -27,12 +27,9 @@ SECRET_KEY = env('DJANGO_SECRET_KEY',
 DEBUG = os.environ.get('DEBUG', True)
 
 if DEBUG:
-    ALLOWED_HOSTS = ['*', '54.175.59.91', '54.175.59.91:8001']
+    ALLOWED_HOSTS = ['*',]
 else:
-    ALLOWED_HOSTS = ['54.175.59.91', '54.175.59.91:8001']
-
-
-ALLOWED_HOSTS = ['*', ]
+    ALLOWED_HOSTS = []
 
 # Application definition
 
@@ -146,19 +143,19 @@ DATABASES = {
 }
 
 
-# CORS_ORIGIN_WHITELIST = [
-#     'http://localhost:3000',
-#     'http://localhost:8000',
-#     'http://54.175.59.91:8001',
-#     'http://54.175.59.91'
-# ]
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://54.175.59.91:8001',
+    'http://54.175.59.91'
+]
 
-# CSRF_TRUSTED_ORIGINS = [
-#     'http://localhost:3000',
-#     'http://localhost:8000',
-#     'http://54.175.59.91:8001',
-#     'http://54.175.59.91'
-# ]
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://54.175.59.91:8001',
+    'http://54.175.59.91'
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
