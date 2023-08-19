@@ -27,7 +27,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY',
 DEBUG = os.environ.get('DEBUG', True)
 
 if DEBUG:
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['*', '54.175.59.91']
 else:
     ALLOWED_HOSTS = ['54.175.59.91']
 
