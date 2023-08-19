@@ -146,11 +146,15 @@ DATABASES = {
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:8000',
+    'http://54.175.59.91:8001',
+    'http://54.175.59.91'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:8000',
+    'http://54.175.59.91:8001',
+    'http://54.175.59.91'
 ]
 
 # Password validation
