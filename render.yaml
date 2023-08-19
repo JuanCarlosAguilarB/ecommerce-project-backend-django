@@ -1,6 +1,0 @@
-services:
-  - name: docker-service
-    type: web
-    buildCommand: docker compose -f docker-compose-dev.yml build
-    startCommand: docker compose -f docker-compose-dev.yml up -d
-    # port: 5434
