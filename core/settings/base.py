@@ -31,6 +31,9 @@ if DEBUG:
 else:
     ALLOWED_HOSTS = ['54.175.59.91', '54.175.59.91:8001']
 
+
+ALLOWED_HOSTS = ['*', ]
+
 # Application definition
 
 DJANGO_APPS = [
