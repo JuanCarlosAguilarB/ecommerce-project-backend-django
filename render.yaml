@@ -1,45 +1,7 @@
 version: 0
 services:
-  - name: django
+  - name: docker-service
     type: web
-    buildCommand: docker-compose build django
-    startCommand: docker-compose up django
-    healthCheckPath: /
-    port: 8001
-    envVarsFile: .envs/.local/.django
-
-  - name: postgres
-    type: web
-    buildCommand: docker-compose build postgres
-    startCommand: docker-compose up postgres
-    port: 5434
-    envVarsFile: .envs/.local/.postgres
-
-  - name: redis
-    type: web
-    image: redis:7.2-rc-alpine
-
-  - name: celeryworker
-    type: web
-    buildCommand: docker-compose build celeryworker
-    startCommand: docker-compose up celeryworker
-    dependsOn:
-      - redis
-      - postgres
-
-  - name: celerybeat
-    type: web
-    buildCommand: docker-compose build celerybeat
-    startCommand: docker-compose up celerybeat
-    dependsOn:
-      - redis
-      - postgres
-
-  - name: flower
-    type: web
-    buildCommand: docker-compose build flower
-    startCommand: docker-compose up flower
-    port: 5555
-    dependsOn:
-      - redis
-      - postgres
+    buildCommand: docker compose -f docker-compose-dev.yml build
+    startCommand: docker compose -f docker-compose-dev.yml up -d
+    # port: 5434
