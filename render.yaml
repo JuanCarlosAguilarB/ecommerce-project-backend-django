@@ -1,22 +1,26 @@
 version: 0
 services:
   - name: django
+    type: web
     buildCommand: docker-compose build django
     startCommand: docker-compose up django
     healthCheckPath: /
     port: 8001
-    envVarsFile: .envs/.local/.django  # Ruta al archivo de variables de entorno de Django
+    envVarsFile: .envs/.local/.django
 
   - name: postgres
+    type: web
     buildCommand: docker-compose build postgres
     startCommand: docker-compose up postgres
     port: 5434
-    envVarsFile: .envs/.local/.postgres  # Ruta al archivo de variables de entorno de PostgreSQL
+    envVarsFile: .envs/.local/.postgres
 
   - name: redis
+    type: web
     image: redis:7.2-rc-alpine
 
   - name: celeryworker
+    type: web
     buildCommand: docker-compose build celeryworker
     startCommand: docker-compose up celeryworker
     dependsOn:
@@ -24,6 +28,7 @@ services:
       - postgres
 
   - name: celerybeat
+    type: web
     buildCommand: docker-compose build celerybeat
     startCommand: docker-compose up celerybeat
     dependsOn:
@@ -31,6 +36,7 @@ services:
       - postgres
 
   - name: flower
+    type: web
     buildCommand: docker-compose build flower
     startCommand: docker-compose up flower
     port: 5555
