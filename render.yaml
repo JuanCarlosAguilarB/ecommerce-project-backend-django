@@ -1,4 +1,3 @@
-version: 0
 services:
   - name: docker-service
     type: web
