@@ -1,4 +1,4 @@
-# Django Rest Framework Backend Project for Ecommerce using Docker
+# Django Rest Framework Backend template Project  using Docker
 
 This is a Django Rest Framework template project that uses Docker to manage the development and **production** environment. Additionally, it includes configuration for Dockerizing the database.
 
@@ -80,6 +80,11 @@ To **stop** the Docker containers, execute the following command:
 ```
 docker-compose -f docker-compose-dev.yml build down
 ```
+--------------------
+
+# 'Setup' App for Automatic Configurations
+
+This Django app, named setup, serves the purpose of automating and streamlining tasks that might otherwise be tedious and unnecessary. It automates the process of registering models with the Django admin site, eliminating the need for manual registration. By iterating through the models defined in your project's applications, this app seamlessly registers them with the admin site. This ensures that models are readily displayed and can be managed within the admin interface. The primary objective is to offload routine administrative tasks, enabling you to focus on more essential aspects of your project
 
 
 ## Contribution

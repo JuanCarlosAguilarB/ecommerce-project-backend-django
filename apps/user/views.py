@@ -34,7 +34,6 @@ class CreateUser(CreateAPIView):
         # we should delete password for security
         user_info = serializer.data
         user_info.pop("password")
-        print(user_info)
         return Response(user_info, status=status.HTTP_201_CREATED)
 
 
@@ -70,7 +69,6 @@ class DeleteUserAcount(RetrieveAPIView):
 
         # extraer el username del url
         username = self.kwargs['username']
-        print(self.kwargs, "..........................")
         user = User.objects.filter(username=username)
         if not user:
             raise Http404("No MyModel matches the given query.")

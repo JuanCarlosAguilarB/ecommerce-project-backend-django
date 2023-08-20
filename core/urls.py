@@ -40,7 +40,6 @@ for app_name in settings.PROJECT_APPS:
     # Intentamos cargar las URLs de la app si esta tiene el módulo urls.py
     try:
         app_urls = f"{app_name}.urls"
-        print(app_urls)
         urlpatterns.append(path('', include(app_urls)))
 
     except ImportError:
