@@ -1,12 +1,10 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from django.urls import re_path
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
-import os
 from django.conf import settings
 
 schema_view = get_schema_view(
@@ -40,7 +38,7 @@ for app_name in settings.PROJECT_APPS:
     # Intentamos cargar las URLs de la app si esta tiene el módulo urls.py
     try:
         app_urls = f"{app_name}.urls"
-        urlpatterns.append(path('', include(app_urls)))
 
-    except ImportError:
-        pass
+        urlpatterns.append(path('', include(app_urls)))
+    except ImportError as e:
+        print(e)
