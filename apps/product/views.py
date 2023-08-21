@@ -1,8 +1,11 @@
-from django.shortcuts import render
+# Django rest imports
 from rest_framework import viewsets
 from rest_framework import permissions
 
+# Models imports
 from .models import Product
+
+# Serializers imports
 from .serializers import ProductSerializer
 
 

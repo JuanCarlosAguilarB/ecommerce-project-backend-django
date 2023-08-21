@@ -18,7 +18,7 @@ class PriceProduct(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     sold = models.IntegerField(default=0)
-    discount = models.DecimalField(max_digits=6, decimal_places=2)
+    discount = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
     def __str__(self):
         """
