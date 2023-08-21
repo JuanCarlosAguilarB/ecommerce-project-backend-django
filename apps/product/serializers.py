@@ -8,10 +8,6 @@ from rest_framework import serializers
 # models imports
 from .models import Product, PriceProduct
 
-from rest_framework import serializers
-from .models import Product
-from .models import PriceProduct  # Assuming this import is required
-
 
 class ProductSerializer(serializers.ModelSerializer):
     """
