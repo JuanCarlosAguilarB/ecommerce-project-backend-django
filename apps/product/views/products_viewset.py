@@ -3,10 +3,10 @@ from rest_framework import viewsets
 from rest_framework import permissions
 
 # Models imports
-from .models import Product
+from apps.product.models import Product
 
 # Serializers imports
-from .serializers import ProductSerializer
+from apps.product.serializers import ProductSerializer
 
 
 class ProductsViewSet(viewsets.ModelViewSet):
