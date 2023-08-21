@@ -44,5 +44,3 @@ for app_name in settings.PROJECT_APPS:
 
     except ImportError:
         pass
-
-print(urlpatterns)
