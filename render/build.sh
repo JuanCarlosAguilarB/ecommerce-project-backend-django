@@ -17,5 +17,5 @@ echo "---create superuser---"
 
 # runserver
 echo "---run server---"
-python manage.py runserver --settings=core.settings.local 0.0.0.0:8000
-# gunicorn your_application.wsgi
+# python manage.py runserver --settings=core.settings.local 0.0.0.0:8000
+gunicorn core.wsgi
