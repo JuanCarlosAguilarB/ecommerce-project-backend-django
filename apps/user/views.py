@@ -4,7 +4,7 @@ from django.http import Http404
 
 # Django Rest Framework
 from rest_framework.generics import CreateAPIView, UpdateAPIView, RetrieveAPIView
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import AllowAny
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -20,6 +20,7 @@ class CreateUser(CreateAPIView):
     """Api view for create an acount for one user"""
 
     serializer_class = CreateUserSerializer
+    permission_classes = [AllowAny]
 
     def create(self, request, *args, **kwargs):
         """
