@@ -7,6 +7,11 @@ from corsheaders.defaults import default_headers
 from channels.routing import ProtocolTypeRouter
 from django.core.asgi import get_asgi_application
 
+# https://stackoverflow.com/questions/75939945/im-facing-this-error-importerror-cannot-import-name-smart-text-from-django#:~:text=1%20Answer&text=This%20error%20is%20caused%20by,encoding%20in%20Django%204.0.
+import django
+from django.utils.encoding import smart_str
+django.utils.encoding.smart_text = smart_str
+
 # instanciamos objeto para lectura de variables de entorno
 env = environ.Env()
 env_aux = os.environ
@@ -60,6 +65,7 @@ THIRD_APPS = [
     'django_filters',
     'silk',
     'django_extensions',  # for django shell_plus
+    'django_jenkins',
 ]
 
 # Obtiene la ruta completa de la carpeta "apps"
@@ -323,3 +329,13 @@ ASGI_APPLICATION = 'core.asgi.application'
 #         'CONFIG': {'hosts': [('localhost', 6379)]},
 #     },
 # }
+
+
+# Jenkis settings
+JENKINS_TASKS = (
+    'django_jenkins.tasks.run_pep8',
+    'django_jenkins.tasks.run_pyflakes',
+    # 'django_jenkins.tasks.run_jslint',
+    'django_jenkins.tasks.run_csslint',
+    'django_jenkins.tasks.run_sloccount'
+)
