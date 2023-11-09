@@ -15,17 +15,18 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
-RENDER_EXTERNAL_HOSTNAME = env_aux.get('RENDER_EXTERNAL_HOSTNAME', '')
+RENDER_EXTERNAL_HOSTNAME = env_aux.get('RENDER_EXTERNAL_HOSTNAME', None)
 
-CORS_ORIGIN_WHITELIST = (
+CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'http://localhost:3001',
     'http://localhost:3002',
     'http://localhost:3003',
     'http://localhost:3005',
+    'http://localhost:8001',
+]
 
-)
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
@@ -34,6 +35,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3002',
     'http://localhost:3003',
     'http://localhost:3005',
+    'http://localhost:8001',
 ]
 
 
