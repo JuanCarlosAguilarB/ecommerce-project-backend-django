@@ -16,7 +16,10 @@ class Product(models.Model):
     name = models.CharField(max_length=255)
     photo = models.ImageField(upload_to='photos/%Y/%m/')
     description = models.TextField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.CASCADE,
+        blank=True, null=True)
     quantity = models.IntegerField(default=0)
     date_created = models.DateTimeField(default=datetime.now)
 

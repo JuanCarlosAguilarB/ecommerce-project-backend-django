@@ -1,0 +1,29 @@
+# Todos
+
+refactorings the follow apps:
+
+cart
+coupons
+payment
+reviews
+shipping
+user_profile
+whishlist
+
+
+implementar resdis and celery
+https://cosasdedevs.com/posts/implementar-sistema-cache-redis-django/
+
+install
+    django-redis
+    django-debug-toolbar
+
+template
+https://github.com/ShahriyarR/hexagonal-flask-blog-tutorial
+
+https://github.com/ShahriyarR/hexagonal-fastapi-jobboard/tree/main
+
+
+https://douwevandermeij.medium.com/hexagonal-architecture-in-python-7468c2606b63
+
+https://blog.szymonmiks.pl/p/hexagonal-architecture-in-python/
