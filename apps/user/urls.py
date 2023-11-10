@@ -11,7 +11,7 @@ urlpatterns = [
     path('signup/', CreateUser.as_view()),
     path('change_password/<str:username>/', ChangePasswordView.as_view(),
          name='auth_change_password'),
-    path('change_password/<str:username>/delete', DeleteUserAcount.as_view(),
+    path('change_password/<str:username>/delete/', DeleteUserAcount.as_view(),
          name='delete_account'),
 ]
 
