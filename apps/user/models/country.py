@@ -12,4 +12,4 @@ class Country(models.Model):
     dial_code = models.CharField(max_length=15, null=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.id} - {self.abbreviation_name} - {self.dial_code}'
