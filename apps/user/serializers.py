@@ -57,8 +57,14 @@ class CreateUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        exclude = ('user_permissions', 'is_superuser',
-                   'last_login', 'is_staff', 'is_active', 'groups')
+        exclude = ('user_permissions',
+                   'is_superuser',
+                   'last_login',
+                   'is_staff',
+                   'is_active',
+                   'groups',
+                   'status',
+                   )
 
 
 class ChangePasswordSerializer(serializers.ModelSerializer):
