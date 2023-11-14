@@ -8,11 +8,7 @@ from rest_framework import serializers
 # Apps
 from apps.user.models import User
 
-# django redis
-from django.views.decorators.cache import cache_page
 
-
-@cache_page(60 * 15)  # Cache durante 15 minutos
 class ListUserSerializer(serializers.ModelSerializer):
     """
     serializers for list all users
