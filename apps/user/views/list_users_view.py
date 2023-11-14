@@ -12,7 +12,7 @@ from apps.user.models import User
 from apps.commons import ListModelMixin
 
 
-class UserViewSet(ListModelMixin, viewsets.GenericViewSet, viewsets.ViewSet):
+class ListUserViewSet(ListModelMixin, viewsets.GenericViewSet, viewsets.ViewSet):
     """
     List of users with active acounts .
     """
