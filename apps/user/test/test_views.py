@@ -1,5 +1,6 @@
 # Django
 from django.test import TestCase
+from django.urls import reverse
 
 # Python
 from PIL import Image
@@ -39,8 +40,9 @@ class UserTestCase(TestCase):
         tmp_file.seek(0)
 
         client = APIClient()
+        url = reverse('signup')
         response = client.post(
-            '/api/v1/users/signup/', {
+            url, {
                 'email': 'testing@cosasdedevs.com',
                 'password': 'rc{4@qHjR>!b`yAV',
                 'password2': 'rc{4@qHjR>!b`yAV',
@@ -69,8 +71,9 @@ class UserTestCase(TestCase):
         """Check if we can log in the page"""
 
         client = APIClient()
+        url = reverse('token_obtain_pair-extra')
         response = client.post(
-            '/login', {
+            url, {
                 'email': 'admin@gmail.com',
                 'password': 'F12345678@',
             },

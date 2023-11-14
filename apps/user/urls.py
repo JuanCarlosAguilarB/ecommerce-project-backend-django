@@ -8,7 +8,7 @@ router = routers.SimpleRouter()
 router.register(r'users', UserViewSet)
 
 urlpatterns = [
-    path('signup/', CreateUser.as_view()),
+    path('signup/', CreateUser.as_view(), name='signup'),
     path('change_password/<str:username>/', ChangePasswordView.as_view(),
          name='auth_change_password'),
     path('change_password/<str:username>/delete/', DeleteUserAcount.as_view(),
