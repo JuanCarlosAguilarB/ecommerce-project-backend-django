@@ -4,7 +4,9 @@ from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
-from django.utils import timezone
+
+# Django Models imports
+from apps.user.models import Country
 
 # https://testdriven.io/blog/django-custom-user-model/
 
@@ -87,20 +89,6 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(email, password, **extra_fields)
 
 
-class Countries(models.Model):
-    """
-    Model by create and save a Country.
-    """
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=50, blank=True, null=True)
-
-    class Meta:
-        db_table = 'countries'
-
-    def __str__(self):
-        return self.name
-
-
 """
 The default User model in Django uses a username to uniquely identify a user during authentication.
 If you'd rather use an email address, you'll need to create a custom User model by either subclassing
@@ -130,7 +118,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=50, blank=True, null=True)
     phone = models.CharField(max_length=50, blank=True, null=True)
     country = models.ForeignKey(
-        Countries, models.DO_NOTHING, blank=True, null=True)
+        Country, models.DO_NOTHING, blank=True, null=True)
     email = models.EmailField(_('email address'), unique=True)
     password = models.CharField(max_length=128)
     username = models.CharField(

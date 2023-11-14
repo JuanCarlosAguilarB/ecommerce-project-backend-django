@@ -339,3 +339,40 @@ JENKINS_TASKS = (
     'django_jenkins.tasks.run_csslint',
     'django_jenkins.tasks.run_sloccount'
 )
+
+
+# django redis config
+
+CACHES = {
+    'default': {
+        'BACKEND': 'redis_cache.RedisCache',
+        'LOCATION': os.environ.get('REDIS_URL', 'localhost:6379'),
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
+        'KEY_PREFIX': 'django_cache',
+        "TIMEOUT": 60 * 15,  # in seconds: 60 * 15 (15 minutes)
+    },
+}
+
+# test if coneccion to redis is ok
+# from django.core.exceptions import ImproperlyConfigured
+# import redis
+# try:
+#     # Configuración de conexión a Redis
+#     redis_connection = redis.StrictRedis.from_url(
+#         os.environ.get('REDIS_URL', 'localhost:6379'))
+
+#     # Realiza una operación simple, por ejemplo, obtener la clave 'test'
+#     redis_connection.set('test', 'exitooooooo')
+#     test_value = redis_connection.get('test')
+
+#     # Imprime un mensaje si la conexión y la operación fueron exitosas
+#     print("Conexión exitosa a Redis. Valor de prueba:", test_value)
+# except redis.exceptions.ConnectionError:
+#     # Maneja la excepción de conexión a Redis
+#     raise ImproperlyConfigured(
+#         "No se pudo conectar a Redis. Verifica la configuración.")
+# except Exception as e:
+#     # Maneja otras excepciones que puedan surgir
+#     raise ImproperlyConfigured(f"Error al conectar a Redis: {e}")
