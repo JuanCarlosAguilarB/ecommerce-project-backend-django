@@ -5,4 +5,5 @@ set -o pipefail
 set -o nounset
 
 
-celery -A core.taskapp beat -l INFO
+# celery -A core beat -l INFO
+DJANGO_SETTINGS_MODULE=core.settings celery -A core beat -l info
