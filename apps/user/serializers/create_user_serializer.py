@@ -47,4 +47,5 @@ class CreateUserSerializer(serializers.ModelSerializer):
                    'is_active',
                    'groups',
                    'status',
+                   'is_verify',
                    )

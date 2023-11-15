@@ -134,6 +134,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
+    is_verify = models.BooleanField(default=False)
+
     objects = CustomUserManager()
 
     class Meta:
