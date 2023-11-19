@@ -3,6 +3,25 @@
 # Exit on error
 set -o errexit
 
+# Check for Redis existence
+if ! command -v redis-server &> /dev/null
+then
+    echo "Downloading Redis..."
+    # Download Redis
+    wget http://download.redis.io/redis-stable.tar.gz
+    tar xvzf redis-stable.tar.gz
+    cd redis-stable
+    make
+
+    echo "Redis downloaded and compiled successfully."
+else
+    echo "Redis is already installed on the system."
+fi
+
+# Start Redis
+echo "Starting Redis server..."
+redis-server &
+
 pip install -r ./requirements/production.txt
 
 # python manage.py collectstatic --no-input
