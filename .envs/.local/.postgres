@@ -1,6 +1,6 @@
 # PostgreSQL
 POSTGRES_HOST=postgres
 POSTGRES_PORT=5432
-POSTGRES_DB=ecommerce-django
+POSTGRES_DB=ecommerce-django-1
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=clave123

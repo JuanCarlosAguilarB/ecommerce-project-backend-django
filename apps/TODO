@@ -11,6 +11,9 @@ user_profile
 whishlist
 
 
+ccon celery send emails of create account
+
+
 implementar resdis and celery
 https://cosasdedevs.com/posts/implementar-sistema-cache-redis-django/
 
@@ -27,3 +30,23 @@ https://github.com/ShahriyarR/hexagonal-fastapi-jobboard/tree/main
 https://douwevandermeij.medium.com/hexagonal-architecture-in-python-7468c2606b63
 
 https://blog.szymonmiks.pl/p/hexagonal-architecture-in-python/
+
+Celery y django para ejecutar tareas asíncronas
+https://coffeebytes.dev/celery-y-django-para-ejecutar-tareas-asincronas/
+
+--------------------------------
+Deploying Django to AWS ECS with Terraform
+https://testdriven.io/blog/deploying-django-to-ecs-with-terraform/#aws-resources
+
+
+Create an EC2 Instance using Custom VPC
+https://medium.com/cloudnloud/create-an-ec2-instance-using-custom-vpc-f8c7310c063
+
+
+
+
+https://www.codecademy.com/learn/learn-data-structures-and-algorithms-with-python/modules/nodes/cheatsheet 
+
+
+web for services for to send emails 
+https://app.brevo.com/marketing-dashboard

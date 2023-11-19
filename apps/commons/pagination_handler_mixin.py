@@ -1,39 +1,7 @@
-# Django
-# from django.shortcuts import get_object_or_404
-# from django.http import Http404
-
-# Django Rest Framework
-# from rest_framework.generics import CreateAPIView, UpdateAPIView, RetrieveAPIView
-# from rest_framework.permissions import IsAdminUser
-# from rest_framework import status, viewsets
+# Django rest framework
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 
-
-class ListModelMixin:
-    """
-    Mixin for listing a queryset with pagination for GenericViewSet.
-    """
-
-    def list(self, request, *args, **kwargs):
-        """
-        Handles the listing of a queryset with pagination.
-        """
-
-        # Get the queryset based on the view's defined get_queryset method
-        queryset = self.get_queryset()
-
-        # Attempt to paginate the queryset
-        page = self.paginate_queryset(queryset)
-
-        # If pagination is applied, serialize and return paginated data
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            return self.get_paginated_response(serializer.data)
-
-        # If no pagination is applied, serialize and return the entire queryset
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
 
 class BasicPagination(PageNumberPagination):
     """
@@ -78,9 +46,12 @@ class PaginationHandlerMixin(object):
         assert self.paginator is not None
         return self.paginator.get_paginated_response(data)
 
-    def get_data_paginated(self, queryset=None, serializer_class=None, request=None):
+    def get_data_paginated(
+            self, queryset=None,
+            serializer_class=None, request=None):
         """
-        Retrieves paginated data using the provided queryset, serializer class, and request.
+        Retrieves paginated data using the provided queryset, serializer class,
+        and request.
         """
         if queryset is None:
             queryset = self.get_queryset()
