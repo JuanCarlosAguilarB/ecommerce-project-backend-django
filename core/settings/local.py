@@ -1,5 +1,6 @@
 # """Development settings."""
 
+from django.core.mail import EmailMultiAlternatives
 from .base import *  # NOQA
 from .base import env, env_aux
 
@@ -63,11 +64,12 @@ CACHES = {
 # Templates
 TEMPLATES[0]['OPTIONS']['debug'] = DEBUG  # NOQA
 
-# Email
-EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
-                    default='django.core.mail.backends.console.EmailBackend')
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+# # Email
+# EMAIL_BACKEND = env('DJANGO_EMAIL_BACKEND',
+#                     default='django.core.mail.backends.console.EmailBackend')
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
 
 # django-extensions
 # INSTALLED_APPS += ['django_extensions']  # noqa F405
+

@@ -10,13 +10,19 @@ from rest_framework import status
 # apps
 from apps.user.serializers import CreateUserSerializer
 
+# third imports
+from core.redis_config import RedisSingleton
+from apps.user.task import send_verification_email
+from apps.commons import generate_verification_code
 
-##
+
 class CreateUser(CreateAPIView):
     """Api view for create an acount for one user"""
 
     serializer_class = CreateUserSerializer
     permission_classes = [AllowAny]
+
+    redis_instance = RedisSingleton().get_instance()
 
     def create(self, request, *args, **kwargs):
         """
@@ -27,7 +33,21 @@ class CreateUser(CreateAPIView):
         serializer = CreateUserSerializer(
             data=request.data, context=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        user = serializer.save()
+
+        user_email = user.email
+
+        # Generate code verification
+        verification_code = generate_verification_code()
+
+        # Storing the code in Redis with a key equal to the user's email,
+        # with a 15-minute expiration.
+        redix_time_exp = 15 * 60  # 15 minutes or 900 seconds
+        self.redis_instance.setex(
+            user_email, redix_time_exp, verification_code)
+
+        # Calling the Celery task to send the email.
+        send_verification_email.delay(user_email, verification_code)
 
         # we should delete password for security
         user_info = serializer.data

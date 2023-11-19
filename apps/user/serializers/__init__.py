@@ -2,3 +2,4 @@ from .create_user_serializer import CreateUserSerializer
 from .change_password_serializer import ChangePasswordSerializer
 from .delete_account_serializer import DeleteAccount
 from .list_users_serializer import ListUserSerializer
+from .verify_account_serializer import VerifyAccountSerializer

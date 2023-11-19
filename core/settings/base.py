@@ -343,15 +343,20 @@ JENKINS_TASKS = (
 
 # django redis config
 
+REDIS_HOST = os.environ.get('REDIS_URL', 'localhost')
+REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
+REDIS_DB = os.environ.get('REDIS_DB', 0)
+
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
-        'LOCATION': os.environ.get('REDIS_URL', 'localhost:6379'),
+        'LOCATION': REDIS_HOST,
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         },
         'KEY_PREFIX': 'django_cache',
         "TIMEOUT": 60 * 15,  # in seconds: 60 * 15 (15 minutes)
+
     },
 }
 
@@ -389,3 +394,12 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = "Australia/Tasmania"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
+
+# email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'projects.devs101@gmail.com'
+EMAIL_HOST_PASSWORD = 'jbyvshlhqkmkqnpi'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
