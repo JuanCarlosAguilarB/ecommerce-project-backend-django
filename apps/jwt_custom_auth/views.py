@@ -18,6 +18,12 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 
+# third imports
+from core.redis_config import RedisSingleton
+from apps.user.task import send_verification_email
+from apps.commons import generate_verification_code
+
+
 User = get_user_model()
 
 
@@ -47,6 +53,7 @@ class ObtainUserLoginMiddleware():
 
     permission_classes = [permissions.AllowAny]
     serializer_class = ObtainTokenSerializer
+    redis_instance = RedisSingleton().get_instance()
 
     def get_user(self):
         """
@@ -251,9 +258,29 @@ class TokenObtainExtraDetailsView(ObtainUserLoginMiddleware,
 
         user = self.get_user()
 
+        # return 403 if user don't verify email and send email to verify
+        if not user.is_verify:
+            user_email = user.email
+            # Generate code verification
+            verification_code = generate_verification_code()
+
+            # Storing the code in Redis with a key equal to the user's email,
+            # with a 15-minute expiration.
+            redix_time_exp = 15 * 60  # 15 minutes or 900 seconds
+            self.redis_instance.setex(
+                user_email,
+                redix_time_exp,
+                verification_code)
+
+            # Calling the Celery task to send the email.
+            send_verification_email.delay(user_email, verification_code)
+
+            return Response({'message': 'User is not active'},
+                            status=status.HTTP_403_FORBIDDEN)
+
         if not user:
-            return Response({'message': 'Invalid credentials'},
-                            status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': 'User not found'},
+                            status=status.HTTP_403_FORBIDDEN)
 
         respose = self.get_tokens_for_user(user)
         respose['user'] = ListUserSerializer(user).data
