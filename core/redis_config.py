@@ -27,9 +27,17 @@ class RedisSingleton:
         :return: Singleton instance of the Redis connection.
         """
         if RedisSingleton._instance is None:
-            url = f'redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}'
-            RedisSingleton._instance = redis.StrictRedis.from_url(
-                url=url
-                # db=settings.REDIS_DB
+            # url = f'redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}'
+            url = f'redis://:{settings.REDIS_PASSWORD}@{settings.REDIS_HOST}:{settings.REDIS_PORT}'
+
+            # RedisSingleton._instance = redis.StrictRedis.from_url(
+            #     url=url
+            #     # db=settings.REDIS_DB
+            #     )
+            RedisSingleton._instance = redis.Redis(
+                host=settings.REDIS_HOST,
+                port=settings.REDIS_PORT,
+                # password=settings.REDIS_PASSWORD
+                password='FCzBTUDMQw2O5Oc3wEHFSiaqKKBAsKUd'
                 )
         return RedisSingleton._instance

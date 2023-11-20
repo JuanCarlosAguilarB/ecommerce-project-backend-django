@@ -1,8 +1,8 @@
 # Redis
 REDIS_URL=redis://redis:6379/0
-REDIS_HOST='redis-10999.c15.us-east-1-4.ec2.cloud.redislabs.com'
+REDIS_HOST=redis-10999.c15.us-east-1-4.ec2.cloud.redislabs.com
 REDIS_PORT=10999
-REDIS_PASSWORD='FCzBTUDMQw2O5Oc3wEHFSiaqKKBAsKUd'
+REDIS_PASSWORD=FCzBTUDMQw2O5Oc3wEHFSiaqKKBAsKUd
 REDIS_DB= 0
 
 

@@ -342,9 +342,13 @@ JENKINS_TASKS = (
 
 
 # django redis config
-REDIS_HOST = os.environ.get('REDIS_HOST', 'redis-10999.c15.us-east-1-4.ec2.cloud.redislabs.com')
+REDIS_HOST = os.environ.get(
+    'REDIS_HOST', 'redis-10999.c15.us-east-1-4.ec2.cloud.redislabs.com')
 REDIS_PORT = os.environ.get('REDIS_PORT', 10999)
 REDIS_DB = os.environ.get('REDIS_DB', 0)
+REDIS_PASSWORD = os.environ.get(
+    'REDIS_PASSWORD', 'FCzBTUDMQw2O5Oc3wEHFSiaqKKBAsKUd')
+
 
 CACHES = {
     'default': {
@@ -365,7 +369,7 @@ CACHES = {
     },
 }
 
-print(REDIS_HOST) 
+print(REDIS_HOST)
 
 # test if coneccion to redis is ok
 # from django.core.exceptions import ImproperlyConfigured
