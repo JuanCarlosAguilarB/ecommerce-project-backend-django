@@ -12,7 +12,7 @@ from apps.user.serializers import CreateUserSerializer
 
 # third imports
 from core.redis_config import RedisSingleton
-from apps.user.task import send_verification_email
+from apps.user.task import send_verification_email, send_verification_email_sync
 from apps.commons import generate_verification_code
 
 
@@ -48,6 +48,7 @@ class CreateUser(CreateAPIView):
 
         # Calling the Celery task to send the email.
         send_verification_email.delay(user_email, verification_code)
+        send_verification_email_sync(user_email, verification_code)
 
         # we should delete password for security
         user_info = serializer.data

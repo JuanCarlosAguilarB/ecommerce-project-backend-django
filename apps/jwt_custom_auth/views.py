@@ -20,7 +20,7 @@ from rest_framework_simplejwt.views import (
 
 # third imports
 from core.redis_config import RedisSingleton
-from apps.user.task import send_verification_email
+from apps.user.task import send_verification_email, send_verification_email_sync
 from apps.commons import generate_verification_code
 
 
@@ -274,6 +274,7 @@ class TokenObtainExtraDetailsView(ObtainUserLoginMiddleware,
 
             # Calling the Celery task to send the email.
             send_verification_email.delay(user_email, verification_code)
+            send_verification_email_sync(user_email, verification_code)
 
             return Response({'message': 'User is not active'},
                             status=status.HTTP_403_FORBIDDEN)

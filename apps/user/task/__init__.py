@@ -1,1 +1,1 @@
-from .send_email_verification import send_verification_email
+from .send_email_verification import send_verification_email, send_verification_email_sync
