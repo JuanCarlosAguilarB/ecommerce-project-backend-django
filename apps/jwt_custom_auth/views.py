@@ -273,7 +273,7 @@ class TokenObtainExtraDetailsView(ObtainUserLoginMiddleware,
                 verification_code)
 
             # Calling the Celery task to send the email.
-            send_verification_email.delay(user_email, verification_code)
+            # send_verification_email.delay(user_email, verification_code)
             send_verification_email_sync(user_email, verification_code)
 
             return Response({'message': 'User is not active'},
