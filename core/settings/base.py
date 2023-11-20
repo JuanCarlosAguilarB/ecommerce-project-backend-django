@@ -342,8 +342,7 @@ JENKINS_TASKS = (
 
 
 # django redis config
-
-REDIS_HOST = os.environ.get('REDIS_URL', 'localhost')
+REDIS_HOST = os.environ.get('REDIS_HOST', 'localhost')
 REDIS_PORT = os.environ.get('REDIS_PORT', 6379)
 REDIS_DB = os.environ.get('REDIS_DB', 0)
 
@@ -351,36 +350,44 @@ CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
         'LOCATION': REDIS_HOST,
+        # password redis
         'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            'DB': REDIS_DB,
+            'PASSWORD': os.environ.get('REDIS_PASSWORD', ''),
+            'PARSER_CLASS': 'redis.connection.HiredisParser'
         },
+        # 'OPTIONS': {
+        #     'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        # },
         'KEY_PREFIX': 'django_cache',
         "TIMEOUT": 60 * 15,  # in seconds: 60 * 15 (15 minutes)
 
     },
 }
 
+print(REDIS_HOST) 
+
 # test if coneccion to redis is ok
-# from django.core.exceptions import ImproperlyConfigured
-# import redis
-# try:
-#     # Configuración de conexión a Redis
-#     redis_connection = redis.StrictRedis.from_url(
-#         os.environ.get('REDIS_URL', 'localhost:6379'))
+from django.core.exceptions import ImproperlyConfigured
+import redis
+try:
+    # Configuración de conexión a Redis
+    redis_connection = redis.StrictRedis.from_url(
+        os.environ.get('REDIS_URL', 'localhost:6379'))
 
-#     # Realiza una operación simple, por ejemplo, obtener la clave 'test'
-#     redis_connection.set('test', 'exitooooooo')
-#     test_value = redis_connection.get('test')
+    # Realiza una operación simple, por ejemplo, obtener la clave 'test'
+    redis_connection.set('test', 'exitooooooo')
+    test_value = redis_connection.get('test')
 
-#     # Imprime un mensaje si la conexión y la operación fueron exitosas
-#     print("Conexión exitosa a Redis. Valor de prueba:", test_value)
-# except redis.exceptions.ConnectionError:
-#     # Maneja la excepción de conexión a Redis
-#     raise ImproperlyConfigured(
-#         "No se pudo conectar a Redis. Verifica la configuración.")
-# except Exception as e:
-#     # Maneja otras excepciones que puedan surgir
-#     raise ImproperlyConfigured(f"Error al conectar a Redis: {e}")
+    # Imprime un mensaje si la conexión y la operación fueron exitosas
+    print("Conexión exitosa a Redis. Valor de prueba:", test_value)
+except redis.exceptions.ConnectionError:
+    # Maneja la excepción de conexión a Redis
+    raise ImproperlyConfigured(
+        "No se pudo conectar a Redis. Verifica la configuración.")
+except Exception as e:
+    # Maneja otras excepciones que puedan surgir
+    raise ImproperlyConfigured(f"Error al conectar a Redis: {e}")
 
 
 # celery settings
