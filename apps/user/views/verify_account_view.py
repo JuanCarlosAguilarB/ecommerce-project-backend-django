@@ -43,11 +43,17 @@ class VerityAccountView(APIView):
 
         if code_redis is None:
             return Response(
-                {'detail': 'code not found'}, status=status.HTTP_404_NOT_FOUND)
+                {
+                    'response': {'detail': 'code not found'},
+                    'error': False
+                }, status=status.HTTP_404_NOT_FOUND)
 
         if code_redis.decode('utf-8') != code:
             return Response(
-                {'detail': 'code is incorrect'},
+                {
+                    'response': {'detail': 'code is incorrect'},
+                    'error': False
+                },
                 status=status.HTTP_400_BAD_REQUEST)
 
         # delete code of redis
