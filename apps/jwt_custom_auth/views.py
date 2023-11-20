@@ -258,6 +258,10 @@ class TokenObtainExtraDetailsView(ObtainUserLoginMiddleware,
 
         user = self.get_user()
 
+        if not user:
+            return Response({'message': 'Invalid credentials'},
+                            status=status.HTTP_400_BAD_REQUEST)
+
         # return 403 if user don't verify email and send email to verify
         if not user.is_verify:
             user_email = user.email
