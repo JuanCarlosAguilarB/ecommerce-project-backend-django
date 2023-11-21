@@ -20,7 +20,7 @@ urlpatterns = [
     path('change_password/<str:username>/delete/',
          DeleteUserAcount.as_view(),
          name='delete_account'),
-    path('user/<int:pk>/', UserViewSet.as_view({'get': 'retrieve'}))
+    path('user/<uuid:pk>/', UserViewSet.as_view({'get': 'retrieve'}))
 ]
 
 urlpatterns += router.urls
