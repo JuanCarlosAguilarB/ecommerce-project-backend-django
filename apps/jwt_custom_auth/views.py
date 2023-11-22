@@ -1,3 +1,9 @@
+from rest_framework_simplejwt.tokens import AccessToken
+from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import User
+from rest_framework.authtoken.models import Token
+from rest_framework import status
 from apps.user.serializers import ListUserSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import views, permissions, status
@@ -290,3 +296,53 @@ class TokenObtainExtraDetailsView(ObtainUserLoginMiddleware,
         respose = self.get_tokens_for_user(user)
         respose['user'] = ListUserSerializer(user).data
         return Response(respose, status=status.HTTP_200_OK)
+
+
+class CustomTokenVerifyView(APIView):
+    """
+    Custom view to verify the validity of a token and user existence in the database.
+
+    The view checks if the provided token corresponds to a valid token
+    stored in the database and if the associated user exists in the database.
+
+    Returns:
+        Response: 404 Not Found if the token or user is not found.
+                  200 OK if the token and associated user are valid.
+    """
+
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        """
+        Handle POST requests to verify the token.
+
+        Args:
+            request (Request): HTTP request object containing the token.
+
+        Returns:
+            Response: JSON response indicating the success or failure of token verification.
+        """
+
+        token_key = request.data.get('token')
+        user_id = ''
+        try:
+            access_token = AccessToken(token_key)
+            user_id = access_token.payload.get('user_id')
+            print(user_id)
+        except Token.DoesNotExist:
+            return Response({"response": "",
+                             "error": "Invalid token"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        # Check if the user exists in the database
+        user_instance = User.objects.filter(id=user_id).first()
+
+        if not user_instance:
+            return Response({"response": "",
+                             "error": "User does not exist"},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        # Return response based on token and user existence
+        return Response({"response": "Token is valid",
+                         "error": False},
+                        status=status.HTTP_200_OK)
