@@ -4,6 +4,9 @@ ENV PYTHONUNBUFFERED 1
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories
 
+# create alias for django migrations
+RUN echo "alias migrate='python manage.py makemigrations && python manage.py migrate'" >> ~/.bashrc
+
 RUN apk update \
 && apk add g++ \
 && apk add libc-dev \
