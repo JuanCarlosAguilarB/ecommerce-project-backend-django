@@ -1,3 +1,4 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -24,6 +25,13 @@ class GetUserProfileView(APIView):
 
 
 class UpdateUserProfileView(APIView):
+
+    serializer_class = UserProfileSerializer
+
+    @swagger_auto_schema(
+        request_body=UserProfileSerializer,
+        responses={200: UserProfileSerializer}
+    )
     def put(self, request, format=None):
         try:
             user = self.request.user
