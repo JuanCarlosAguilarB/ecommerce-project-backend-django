@@ -6,6 +6,7 @@ from django.db import models
 
 # Models imports
 from apps.category.models import Category
+from apps.product.models.auditory_product_amount import AuditoryProductAmount
 
 
 class Product(models.Model):
@@ -31,6 +32,19 @@ class Product(models.Model):
         if self.photo:
             return self.photo.url
         return ''
+
+    # prevent to delete a UserPurchase
+    def delete(self, *args, **kwargs):
+        raise ValueError("Product can't be to delete")
+
+    # save in AuditoryProductAmount the amount of the product
+    # when the product is created or updated
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        AuditoryProductAmount.objects.create(
+            product=self,
+            amount=self.quantity
+        )
 
     def __str__(self):
         """

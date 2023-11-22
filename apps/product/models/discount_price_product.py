@@ -31,7 +31,7 @@ class DiscountPriceProduct(models.Model):
 
         # self.start_date shoul be greather datetime.now()
         if self.start_date < datetime.now():
-            raise ValueError("start_date should be greather datetime.now()")
+            raise ValueError("start_date should be greather to now")
 
         # self.end_date shoul be greather self.start_date
         if self.end_date < self.start_date:
@@ -54,6 +54,13 @@ class DiscountPriceProduct(models.Model):
             raise ValueError("Another DiscountPriceProduct is active")
 
         super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+
+        if self.start_date < datetime.now():
+            raise ValueError("User purchase can't deleted")
+
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         """
