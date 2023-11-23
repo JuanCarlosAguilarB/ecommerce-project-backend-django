@@ -24,6 +24,8 @@ class Product(models.Model):
     quantity = models.IntegerField(default=0)
     date_created = models.DateTimeField(default=datetime.now)
 
+    available = models.BooleanField(default=True)
+
     def get_thumbnail(self):
         """
         Returns the URL of the product's thumbnail photo.

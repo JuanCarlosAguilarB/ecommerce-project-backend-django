@@ -1,0 +1,3 @@
+from .products_test import ProductTestCase
+from .price_product_test import PriceProductTestCase
+from .discount_price_product_test import DiscountPriceProductTestCase
