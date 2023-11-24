@@ -19,7 +19,7 @@ urlpatterns = [
     path('change_password/<str:username>/',
          ChangePasswordView.as_view(),
          name='auth_change_password'),
-    path('change_password/<str:username>/delete/',
+    path('user-delete/',
          DeleteUserAcount.as_view(),
          name='delete_account'),
     path('user/<uuid:pk>/', UserViewSet.as_view({'get': 'retrieve'})),
