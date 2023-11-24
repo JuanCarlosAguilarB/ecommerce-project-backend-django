@@ -81,6 +81,7 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('is_verify', True)
 
         if extra_fields.get('is_staff') is not True:
             raise ValueError(_('Superuser must have is_staff=True.'))
@@ -131,6 +132,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     # fields that to need django auth models
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+
+    address = models.CharField(max_length=255, default='')
+    city = models.CharField(
+        max_length=255, default='', blank=True, null=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
