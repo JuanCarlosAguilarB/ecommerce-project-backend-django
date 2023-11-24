@@ -1,12 +1,14 @@
 # Django imports
 from django.utils import timezone
-from django.db.models import Q
 
 # Django rest imports
 from rest_framework import serializers
 
 # models imports
-from .models import Product, PriceProduct
+from .models import Product, PriceProduct, DiscountPriceProduct
+
+# serializers imports
+from apps.category.serializers import CategorySerializer
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -16,9 +18,11 @@ class ProductSerializer(serializers.ModelSerializer):
     """
 
     # Additional fields to be included in the serialized data
+    category = CategorySerializer()
     normal_price = serializers.SerializerMethodField()
     calculated_price = serializers.SerializerMethodField()
     discount = serializers.SerializerMethodField()
+    photo = serializers.CharField(source='photo.name')
 
     class Meta:
         model = Product
@@ -28,13 +32,10 @@ class ProductSerializer(serializers.ModelSerializer):
         """
         Returns the PriceProduct object associated with the current time and the given product.
         """
-        now = timezone.now()
 
         return PriceProduct.objects.filter(
-            Q(end_date__isnull=True) | Q(end_date__gte=now),
+            active=True,
             product=obj,
-            start_date__lte=now,
-            # end_date__gte=now
         ).first()
 
     def get_normal_price(self, obj):
@@ -55,7 +56,9 @@ class ProductSerializer(serializers.ModelSerializer):
         price_product = self.get_prices(obj)
         if not price_product:
             return 0
-        return price_product.price - price_product.discount
+        price_product_cal = price_product.price - self.get_discount(obj)
+
+        return price_product_cal
 
     def get_discount(self, obj):
         """
@@ -65,4 +68,16 @@ class ProductSerializer(serializers.ModelSerializer):
         price_product = self.get_prices(obj)
         if not price_product:
             return 0
-        return price_product.discount
+
+        now = timezone.now()
+
+        discount_price = DiscountPriceProduct.objects.filter(
+            price_product=price_product,
+            start_date__lte=now,
+            end_date__gte=now
+        ).first()
+
+        if not discount_price:
+            return 0
+
+        return discount_price.discount
