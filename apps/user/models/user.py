@@ -132,6 +132,11 @@ class User(AbstractBaseUser, PermissionsMixin):
     # fields that to need django auth models
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+
+    address = models.CharField(max_length=255, default='')
+    city = models.CharField(
+        max_length=255, default='', blank=True, null=True)
+
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 

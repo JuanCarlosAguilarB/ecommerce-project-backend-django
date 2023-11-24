@@ -4,3 +4,4 @@ from .delete_account_serializer import DeleteAccount
 from .list_users_serializer import ListUserSerializer
 from .verify_account_serializer import VerifyAccountSerializer
 from .country_serializers import CountryMultilanguageSerializer
+from .update_user_serializer import UpdateUserSerializer
